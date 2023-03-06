@@ -5,7 +5,7 @@ const messages = document.getElementsByClassName('message');
 const tooHighMessage = document.getElementById('too-high');
 const tooLowMessage = document.getElementById('too-low');
 const maxGuessesMessage = document.getElementById('max-guesses');
-const numberOfGuessesMessage = document.getElementById('num-of-guesses');
+const numberOfGuessesMessage = document.getElementById('number-of-guesses'); //bug fixed num -> number 
 const correctMessage = document.getElementById('correct');
 
 let targetNumber;
@@ -85,8 +85,28 @@ function setup() { //fixed bug fuNction
   hideAllMessages();
   resetButton.style.display = 'none';
 }
+// Optional task
+//  submit a guessed number should not be lower than 1 and higher than 99, you also cannot submit an emtpy string
 
+function updateValue() {
+  const guessStr = guessInput.value;
+  if (guessStr === '') {
+    submitButton.disabled = true;
+    return;
+  }
+
+  const guess = parseInt(guessStr, 10);
+  if (guess < 1 || guess > 99) {
+    submitButton.disabled = true;
+  } else {
+    submitButton.disabled = false;
+  }
+}
+
+guessInput.addEventListener("input", updateValue);
 submitButton.addEventListener('click', checkGuess);
 resetButton.addEventListener('click', setup);
 
 setup();
+
+submitButton.disabled = true;
