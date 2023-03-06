@@ -29,9 +29,14 @@ function checkGuess() {
 
   hideAllMessages();
 
+// Optional task when there is one guess left you get singular guess instead of plural guesses
+  
   if (guess === targetNumber) {
     numberOfGuessesMessage.style.display = '';
-    numberOfGuessesMessage.innerHTML = `You made ${attempts} guesses`;
+    if (attempts == 1)
+      numberOfGuessesMessage.innerHTML = `You made ${attempts} guess`;
+    else
+      numberOfGuessesMessage.innerHTML = `You made ${attempts} guesses`;
 
     correctMessage.style.display = '';
 
@@ -49,7 +54,11 @@ function checkGuess() {
     const remainingAttempts = maxNumberOfAttempts - attempts;
 
     numberOfGuessesMessage.style.display = '';
-    numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} guesses remaining`;
+    if (remainingAttempts == 1) {
+      numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} guess remaining`;
+    } else {
+      numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} guesses remaining`;
+    }
   }
 
   if (attempts === maxNumberOfAttempts) { //fixed bug ==== -> ===
